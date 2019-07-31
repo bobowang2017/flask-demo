@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.register_blueprint(bp_tests)
 
 # 读取并加载数据库配置
-app.config.from_object(CONFIG['local'])
+app.config.from_object(CONFIG['development'])
 db.init_app(app)
 
 
