@@ -12,6 +12,11 @@ def total():
     return "<h1>The %s Click</h1>" % str(total)
 
 
+@bp_tests.route('/health', methods=['GET'])
+def total():
+    return "success"
+
+
 class TestView(MethodView):
     def get(self):
         user = User(username='admin', password='admin@example.com', sex=1, name='bobo')
