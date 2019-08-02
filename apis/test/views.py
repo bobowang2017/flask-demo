@@ -13,7 +13,7 @@ def total():
 
 
 @bp_tests.route('/health', methods=['GET'])
-def total():
+def health():
     return "success"
 
 
