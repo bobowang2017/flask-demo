@@ -27,6 +27,5 @@ logger.addHandler(console)
 config = CONFIG['local']
 
 # 初始化celery
-celery = Celery('celery_app', broker='redis://10.176.139.10:6379/0')
-celery.config_from_object('celery_config.CeleryConfig')
-celery.autodiscover_tasks(['apis.celery_task'])
+celery_app = Celery('celery_app', broker='redis://127.0.0.1:6379/0')
+celery_app.config_from_object('celery_config.CeleryConfig')

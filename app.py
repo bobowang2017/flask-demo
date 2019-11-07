@@ -122,21 +122,21 @@ def process_request(*args, **kwargs):
     :param kwargs:
     :return:
     """
-    if not request.path.startswith("/api/v1") or check_request(request.host, request.path, request.method):
-        return
-    user_id = request.headers.get("userId")
-    if not user_id:
-        return make_response(json.dumps({"code": 404, "msg": msg_const.USER_HEARER_NOT_FOUND_404}), 404)
-    user_info = redis_cli.get("user:" + str(user_id))
-    # 先从缓存查询用户
-    if user_info and not isinstance(user_info, dict):
-        user_info = json.loads(user_info)
+    # if not request.path.startswith("/api/v1") or check_request(request.host, request.path, request.method):
+    #     return
+    # user_id = request.headers.get("userId")
+    # if not user_id:
+    #     return make_response(json.dumps({"code": 404, "msg": msg_const.USER_HEARER_NOT_FOUND_404}), 404)
+    # user_info = redis_cli.get("user:" + str(user_id))
+    # # 先从缓存查询用户
+    # if user_info and not isinstance(user_info, dict):
+    #     user_info = json.loads(user_info)
     # 缓存不存在，则查数据库数据
     # if not user_info:
     #     user_info = Serializer.as_dict(user_info)
     #     redis_cli.set("user:" + str(user_id), json.dumps(user_info))
-    setattr(request, 'user_info', user_info)
-
+    # setattr(request, 'user_info', user_info)
+    pass
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=False, port=5003)
