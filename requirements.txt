@@ -22,4 +22,5 @@ python-jenkins==1.5.0
 pika==0.12.0
 arrow==0.15.4
 Flask-Caching==1.7.2
+celery
 #pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple some-package

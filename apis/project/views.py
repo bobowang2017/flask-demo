@@ -1,8 +1,5 @@
-from flask import request
 from flask_restful import Resource
-from apis.project.functions import ProjectTool
-from common.helper import standard_resp, result_to_camel_case, InputError
-from common.message import msg_const
+from common.helper import standard_resp, result_to_camel_case
 
 
 # class ProjectResource(Resource):
