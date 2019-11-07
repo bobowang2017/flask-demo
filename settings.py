@@ -5,24 +5,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class BaseConfig:
+    # 数据库MySQL配置
     SECRET_KEY = os.getenv('SECRET_KEY', 'some secret words')
-
-
-class DevelopmentConfig(BaseConfig):
-    DEBUG = False
-    DIALECT = 'mysql'
-    DRIVER = 'pymysql'
-    USERNAME = 'root'
-    PASSWORD = 'root'
-    HOST = 'mysql-svc'
-    PORT = '3306'
-    DATABASE = 'study'
-    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD,
-                                                                              HOST,
-                                                                              PORT, DATABASE)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Redis配置
+    REDIS_HOST = "10.176.139.10"
+    REDIS_PORT = 6379
 
 
 class TestingConfig(BaseConfig):
@@ -30,25 +19,18 @@ class TestingConfig(BaseConfig):
 
 
 class LocalConfig(BaseConfig):
-    DEBUG = True
-    DIALECT = 'mysql'
-    DRIVER = 'pymysql'
+    DEBUG = False
+    HOST = 'localhost'
     USERNAME = 'root'
     PASSWORD = 'root'
-    HOST = '127.0.0.1'
     PORT = '3306'
-    DATABASE = 'study'
-    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD,
-                                                                              HOST,
-                                                                              PORT, DATABASE)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = False
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_NATIVE_UNICODE = True
+    DATABASE = 'devops2.0'
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8mb4".format(USERNAME, PASSWORD, HOST, PORT,
+                                                                                      DATABASE)
+    SQLALCHEMY_ECHO = False
 
 
 CONFIG = {
-    'development': DevelopmentConfig,
     'testing': TestingConfig,
     'local': LocalConfig
 }

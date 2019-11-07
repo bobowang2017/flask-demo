@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+.vscode/*
+*.pyc
+.idea/*
+log.log
+migrations/*
+tmp_models.py
+python_ldap-3.2.0-cp36-cp36m-win32.whl
+apis/**/__pycache__/
+apis/demo/
+test.py
