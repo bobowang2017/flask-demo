@@ -4,6 +4,6 @@ from celery.utils.log import get_task_logger
 logger = get_task_logger(__name__)
 
 
-@celery.task(name='apis.celery_task.tasks.timer_print')
+@celery.task
 def timer_print():
     logger.info('*' * 50)
