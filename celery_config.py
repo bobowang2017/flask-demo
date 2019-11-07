@@ -8,7 +8,7 @@ class CeleryConfig(object):
     CELERY_ENABLE_UTC = True
     CELERYBEAT_SCHEDULE = {
         "test1": {
-            "task": "apis.celery_task.tasks.timer_print",  # 执行的函数
+            "task": "timer_print",  # 执行的函数
             "schedule": crontab(minute="*/1"),  # every minute 每分钟执行
             "args": ()  # # 任务函数参数
         }
