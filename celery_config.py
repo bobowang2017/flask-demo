@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from celery.schedules import crontab
 
 
@@ -9,7 +11,8 @@ class CeleryConfig(object):
     CELERYBEAT_SCHEDULE = {
         "test1": {
             "task": "apis.celery_task.tasks.timer_print",  # 执行的函数
-            'schedule': crontab(minute=0, hour=0),  # every minute 每分钟执行
+            # 'schedule': crontab(minute=0, hour=0),  # every minute 每分钟执行
+            'schedule': timedelta(seconds=20),  # every minute 每分钟执行
             "args": ()  # # 任务函数参数
         }
     }
