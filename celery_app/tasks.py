@@ -8,7 +8,7 @@ logger = get_task_logger(__name__)
 @celery_app.task
 def timer_print():
     logger.info('*' * 50)
-    app = current_app._get_current_object()
+    from app import app
     with app.app_context():
         # from apis.project.models import Project
         # projects = db.session.query(Project).all()
