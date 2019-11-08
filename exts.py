@@ -2,7 +2,7 @@
 import logging
 from celery.schedules import crontab
 from flask_sqlalchemy import SQLAlchemy
-from celery import Celery
+from flask_celery import Celery
 
 from settings import CONFIG
 
