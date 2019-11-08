@@ -15,6 +15,13 @@ def make_celery(app):
             with app.app_context():
                 return self.run(*args, **kwargs)
 
+        def on_success(self, retval, task_id, args, kwargs):
+            print('success')
+            print(task_id)
+
+        def on_failure(self, exc, task_id, args, kwargs, einfo):
+            print('failure')
+            print('{0!r} failed: {1!r}'.format(task_id, exc))
+
     setattr(celery, 'Task', ContextTask)
     return celery
-
