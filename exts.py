@@ -4,12 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
 
 from settings import CONFIG
-from flask_mail import Mail
 
 # 初始化DB
 db = SQLAlchemy()
-# 初始化邮件
-mail = Mail()
 
 # 定义日志配置
 logger = logging.getLogger(__name__)
