@@ -16,5 +16,5 @@ class CeleryConfig(object):
     #         "args": ()  # # 任务函数参数
     #     }
     # }
-    CELERY_IMPORTS = ('apis.celery_task.tasks',)
+    CELERY_IMPORTS = ('celery_app.tasks',)
     # https://docs.celeryproject.org/en/latest/userguide/configuration.html
