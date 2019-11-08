@@ -32,6 +32,6 @@ celery_app.conf.beat_schedule = {
     'add-every-30-seconds': {
         'task': 'apis.celery_task.tasks.timer_print',
         'schedule': timedelta(seconds=20),
-        'args': (3, 4)
+        'args': ()
     },
 }
