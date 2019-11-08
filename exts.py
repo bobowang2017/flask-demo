@@ -1,7 +1,6 @@
 # 防止循环引用问题
 import logging
-from datetime import timedelta
-
+from celery.schedules import crontab
 from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
 
@@ -31,7 +30,7 @@ celery_app.config_from_object('celery_config.CeleryConfig')
 celery_app.conf.beat_schedule = {
     'add-every-30-seconds': {
         'task': 'apis.celery_task.tasks.timer_print',
-        'schedule': timedelta(seconds=20),
+        'schedule': crontab(),
         'args': ()
     },
 }
