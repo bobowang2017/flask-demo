@@ -9,7 +9,7 @@ from flask import make_response
 from apis.project import bp_project
 from common.message import msg_const
 from common.redis_api import redis_cli
-from exts import db, config, mail
+from exts import db, config
 from werkzeug.routing import Map, Rule
 from flask_caching import Cache
 
@@ -32,8 +32,6 @@ app.register_blueprint(bp_project)
 app.config.from_object(config)
 # 数据库初始化
 db.init_app(app)
-# 邮件初始化
-mail.init_app(app)
 
 # 加载Swagger配置
 swagger_config = {
