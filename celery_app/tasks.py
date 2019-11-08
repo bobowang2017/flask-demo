@@ -1,4 +1,3 @@
-from flask import current_app
 from . import celery_app
 from celery.utils.log import get_task_logger
 # # 创建一个logger对象
@@ -6,9 +5,8 @@ logger = get_task_logger(__name__)
 
 
 @celery_app.task
-def timer_print():
+def timer_print(app):
     logger.info('*' * 50)
-    from app import app
     with app.app_context():
         # from apis.project.models import Project
         # projects = db.session.query(Project).all()
