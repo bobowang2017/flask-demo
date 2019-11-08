@@ -7,6 +7,7 @@ from flask_script import Manager
 from flasgger import Swagger
 from flask import make_response
 from apis.project import bp_project
+from celery_app import make_celery
 from common.message import msg_const
 from common.redis_api import redis_cli
 from exts import db, config
@@ -32,6 +33,8 @@ app.register_blueprint(bp_project)
 app.config.from_object(config)
 # 数据库初始化
 db.init_app(app)
+
+celery_app = make_celery(app)
 
 # 加载Swagger配置
 swagger_config = {
