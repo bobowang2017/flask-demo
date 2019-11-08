@@ -6,7 +6,7 @@ logger = get_task_logger(__name__)
 
 
 @celery_app.task
-def timer_print(app):
+def timer_print():
     logger.info('*' * 50)
     with app.app_context():
         from apis.project.models import Project

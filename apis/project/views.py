@@ -1,7 +1,4 @@
-from flask import current_app
 from flask_restful import Resource
-
-from apis.celery_task.tasks import timer_print
 from common.helper import standard_resp, result_to_camel_case
 
 
@@ -157,5 +154,5 @@ class ProjectListResource(Resource):
         security:
           - basicAuth: []
         """
-        timer_print.delay(current_app._get_current_object())
+        timer_print.delay()
         return
