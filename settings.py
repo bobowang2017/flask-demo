@@ -22,7 +22,7 @@ class LocalConfig(BaseConfig):
     DEBUG = False
     HOST = 'localhost'
     USERNAME = 'root'
-    PASSWORD = 'root'
+    PASSWORD = 'cmdt1234'
     PORT = '3306'
     DATABASE = 'devops2.0'
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8mb4".format(USERNAME, PASSWORD, HOST, PORT,
