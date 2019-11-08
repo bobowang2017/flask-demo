@@ -1,4 +1,7 @@
 from celery import Celery
+from celery.utils.log import get_task_logger
+
+logger = get_task_logger(__name__)
 
 
 def make_celery(app):
@@ -9,19 +12,19 @@ def make_celery(app):
     )
 
     celery.config_from_object('celery_app.celery_config.CeleryConfig')
+    logger.info(celery.conf.table(with_defaults=False, censored=True))
 
     class ContextTask(celery.Task):
         def __call__(self, *args, **kwargs):
+            logger.info('task starting: {0.name}[{0.request.id}]'.format(self))
             with app.app_context():
                 return self.run(*args, **kwargs)
 
         def on_success(self, retval, task_id, args, kwargs):
-            print('success')
-            print(task_id)
+            logger.info('task:{} execute success(args={}, kwargs={})'.format(task_id, args, kwargs))
 
         def on_failure(self, exc, task_id, args, kwargs, einfo):
-            print('failure')
-            print('{0!r} failed: {1!r}'.format(task_id, exc))
+            logger.info('task:{} execute failed(args={}, kwargs={})'.format(task_id, args, kwargs))
 
     setattr(celery, 'Task', ContextTask)
     return celery

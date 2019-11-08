@@ -3,7 +3,6 @@ from celery.utils.log import get_task_logger
 from app import celery_app
 from flask import current_app
 from apis.project.models import Project
-from celery_app.base import BaseTask
 
 logger = get_task_logger(__name__)
 
@@ -16,7 +15,6 @@ def timer_print():
         for p in projects:
             logger.info(p.name)
             logger.info(p.code)
-            logger.info('=' * 50)
         return [{'id': p.id, 'code': p.code, 'name': p.name} for p in projects]
 
 
