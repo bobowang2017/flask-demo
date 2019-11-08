@@ -26,16 +26,16 @@ config = CONFIG['local']
 
 
 # 初始化celery
-class MyCelery(Celery):
-    def now(self):
-        """Return the current time and date as a datetime."""
-        from datetime import datetime
-        return datetime.now(self.timezone)
+# class MyCelery(Celery):
+#     def now(self):
+#         """Return the current time and date as a datetime."""
+#         from datetime import datetime
+#         return datetime.now(self.timezone)
 
 
-celery_app = MyCelery('celery_app', broker='redis://127.0.0.1:6379/0')
+# celery_app = MyCelery('celery_app', broker='redis://127.0.0.1:6379/0')
 
-# celery_app = Celery('celery_app', broker='redis://127.0.0.1:6379/0')
+celery_app = Celery('celery_app')
 celery_app.config_from_object('celery_config.CeleryConfig')
 celery_app.conf.beat_schedule = {
     'add-every-30-seconds': {
