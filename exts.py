@@ -1,5 +1,7 @@
 # 防止循环引用问题
 import logging
+from datetime import timedelta
+
 from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
 
@@ -26,3 +28,10 @@ config = CONFIG['local']
 # 初始化celery
 celery_app = Celery('celery_app', broker='redis://127.0.0.1:6379/0')
 celery_app.config_from_object('celery_config.CeleryConfig')
+celery_app.conf.beat_schedule = {
+    'add-every-30-seconds': {
+        'task': 'apis.celery_task.tasks.timer_print',
+        'schedule': timedelta(seconds=20),
+        'args': (3, 4)
+    },
+}
