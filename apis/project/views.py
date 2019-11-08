@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from common.helper import standard_resp, result_to_camel_case
-
+from apis.celery_task.tasks import timer_print
 
 # class ProjectResource(Resource):
 #
