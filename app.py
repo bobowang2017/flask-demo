@@ -33,6 +33,7 @@ app.config.from_object(config)
 # 数据库初始化
 db.init_app(app)
 
+
 # 加载Swagger配置
 swagger_config = {
     "headers": [],
