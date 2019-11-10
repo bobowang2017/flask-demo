@@ -13,6 +13,7 @@ def make_celery(app):
 
     celery.config_from_object('celery_app.celery_config.CeleryConfig')
     logger.info(celery.conf.table(with_defaults=False, censored=True))
+    print(celery.conf.humanize(with_defaults=False, censored=True))
 
     class ContextTask(celery.Task):
         def __call__(self, *args, **kwargs):
