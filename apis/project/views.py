@@ -2,7 +2,6 @@ from flask_restful import Resource
 from common.helper import standard_resp, result_to_camel_case
 
 
-
 class ProjectListResource(Resource):
     @standard_resp
     @result_to_camel_case
