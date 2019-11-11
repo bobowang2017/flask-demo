@@ -54,9 +54,9 @@ swagger_config = {
 swagger_template = {
     "swagger": "2.0",
     "info": {
-        "title": "2.0",
-        "description": "2.0 Interface Description",
-        "version": "2.0"
+        "title": "api",
+        "description": "Flask-Demo Interface Description",
+        "version": "1.0"
     },
     "basePath": "/",
     "schemes": [
@@ -67,8 +67,8 @@ swagger_template = {
     "securityDefinitions": {'basicAuth': {'type': 'apiKey', 'name': 'X-AUTH-TOKEN', 'in': 'header'}},
     "tags": [
         {
-            "name": "dev-ops-api",
-            "description": "2.0模块"
+            "name": "flask-demo",
+            "description": "1.0"
         }
     ],
 }
