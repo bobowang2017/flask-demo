@@ -3,6 +3,7 @@
 *.pyc
 .idea/*
 log.log
+logs/*
 migrations/*
 tmp_models.py
 python_ldap-3.2.0-cp36-cp36m-win32.whl
