@@ -79,5 +79,12 @@ class RedisClient:
             logger.info(e)
             logger.error(msg_const.REDIS_CONNECTION_500)
 
+    def expire_at(self, key, value):
+        try:
+            return self.redis_client.expireat(key, value)
+        except Exception as e:
+            logger.info(e)
+            logger.error(msg_const.REDIS_CONNECTION_500)
+
 
 redis_cli = RedisClient()

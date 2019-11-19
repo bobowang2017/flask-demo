@@ -6,7 +6,7 @@ from copy import deepcopy
 from datetime import datetime as c_datetime
 from datetime import date, time
 from sqlalchemy import DateTime, Numeric, Date, Time
-from flask import Response
+from flask import Response, request, make_response
 from flask_sqlalchemy import Model
 from common.exceptions import *
 from common.redis_api import redis_cli
@@ -215,3 +215,24 @@ def result_to_camel_case(fn):
 
 def camel_to_underline_for_dict(data):
     return {hump2underline(k): v for k, v in data.items() if isinstance(k, str)}
+
+
+def rate_limit(func):
+    """
+    限流器
+    """
+
+    @functools.wraps(func)
+    def _limit(*args, **kwargs):
+        path, method = request.path, request.method
+        rate = redis_cli.get('rate') or 100
+        redis_key = f'{path}:{method}'
+        counter = redis_cli.get(redis_key)
+        if not counter or counter < rate:
+            redis_cli.incr_instance(redis_key)
+            redis_cli.expire_at(redis_key, 60)
+        else:
+            return make_response(json.dumps({"code": 500, "msg": '访问请求限制'}), 500)
+        return func(*args, **kwargs)
+
+    return _limit

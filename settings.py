@@ -10,7 +10,7 @@ class BaseConfig:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # Redis配置
-    REDIS_HOST = "10.176.139.10"
+    REDIS_HOST = "127.0.0.1"
     REDIS_PORT = 6379
 
 

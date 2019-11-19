@@ -2,12 +2,20 @@
 import logging
 import logging.handlers
 import os
+
+from flask_limiter import Limiter
 from flask_sqlalchemy import SQLAlchemy
 
 from settings import CONFIG
 
 # 初始化DB
 db = SQLAlchemy()
+
+
+class FlaskLimiter(object):
+    def __init__(self, app):
+        self.limiter = Limiter(app)
+
 
 # 定义日志配置
 p_path = os.path.abspath('')
