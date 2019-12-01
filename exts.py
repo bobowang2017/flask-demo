@@ -2,7 +2,8 @@
 import logging
 import logging.handlers
 import os
-from flask_apscheduler import APScheduler
+
+from apis.scheduler.scheduler import APScheduler
 from flask_limiter import Limiter
 from flask_sqlalchemy import SQLAlchemy
 
