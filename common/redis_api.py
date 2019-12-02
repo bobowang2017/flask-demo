@@ -44,6 +44,13 @@ class RedisClient:
             logger.info(e)
             logger.error(msg_const.REDIS_CONNECTION_500)
 
+    def setnx(self, key, value, time=5):
+        try:
+            return self.redis_client.set(key, value, ex=time, nx=True)
+        except Exception as e:
+            logger.info(e)
+            logger.error(msg_const.REDIS_CONNECTION_500)
+
     def delete(self, key):
         try:
             self.redis_client.delete(key)
@@ -82,13 +89,6 @@ class RedisClient:
     def expire_at(self, key, value):
         try:
             return self.redis_client.expireat(key, value)
-        except Exception as e:
-            logger.info(e)
-            logger.error(msg_const.REDIS_CONNECTION_500)
-
-    def setnx(self, key, value, time=5):
-        try:
-            return self.redis_client.setnx(key, value)
         except Exception as e:
             logger.info(e)
             logger.error(msg_const.REDIS_CONNECTION_500)
