@@ -23,6 +23,7 @@ class RedisLock(object):
 
     def get_lock(self):
         counter = 0
+        # TODO 设置一个等待时间，百度去
         while True:
             if self.try_lock():
                 return
@@ -32,6 +33,7 @@ class RedisLock(object):
             time.sleep(0.01)
 
     def release_lock(self):
+        # 利用lua脚本解锁，保证下面的三个操作是一个原子
         lua = """      
         if  redis.call('get', KEYS[1]) == ARGV[1] 
             then
