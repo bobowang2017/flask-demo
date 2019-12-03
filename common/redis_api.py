@@ -93,5 +93,13 @@ class RedisClient:
             logger.info(e)
             logger.error(msg_const.REDIS_CONNECTION_500)
 
+    def register_script(self, script, keys, args):
+        try:
+            cmd = self.redis_client.register_script(script)
+            return cmd(keys=keys, args=args)
+        except Exception as e:
+            logger.info(e)
+            logger.error(msg_const.REDIS_CONNECTION_500)
+
 
 redis_cli = RedisClient()
