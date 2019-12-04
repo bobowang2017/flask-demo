@@ -28,8 +28,7 @@ if not os.path.exists(log_path):
     os.mkdir(log_path)
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.INFO)
-handler = logging.handlers.TimedRotatingFileHandler('logs/log', 'M', 1, 0)
-handler.suffix = "%Y%m%d-%H%M.log"
+handler = logging.FileHandler('logs/log.log', encoding='UTF-8')
 logging_format = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(pathname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 handler.setFormatter(logging_format)

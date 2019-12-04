@@ -24,7 +24,4 @@ class MsgConst(object):
 
 msg_const = MsgConst()
 
-# 环境模块
-msg_const.ENVIRONMENT_PROJECT_404 = "环境参数project_id异常"
-msg_const.ENVIRONMENT_LIST_500 = "获取环境列表异常"
-msg_const.ENVIRONMENT_ARGS_404 = "创建环境缺少参数"
+msg_const.REDIS_CONNECTION_500 = "Redis连接异常"

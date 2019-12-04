@@ -26,11 +26,12 @@ class RedisLock(object):
         # TODO 设置一个等待时间，百度去
         while True:
             if self.try_lock():
+                print('==========================get lock')
                 return
             counter += 1
-            if counter > 20:
+            if counter > 200:
                 raise Exception('Get Lock Timeout')
-            time.sleep(0.01)
+            time.sleep(0.1)
 
     def release_lock(self):
         # 利用lua脚本解锁，保证下面的三个操作是一个原子
@@ -43,3 +44,4 @@ class RedisLock(object):
         end
         """
         self.redis_cli.register_script(lua, ['redis-lock'], [get_ident()])
+        print('==========================release lock')

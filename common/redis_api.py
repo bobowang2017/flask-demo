@@ -14,7 +14,8 @@ class RedisClient:
     @property
     def redis_client(self):
         try:
-            client = redis.Redis(host=self.host, port=self.port)
+            pool = redis.ConnectionPool(host=self.host, port=self.port, max_connections=10000)
+            client = redis.StrictRedis(connection_pool=pool)
         except Exception as e:
             logger.info(e)
             logger.error(msg_const.REDIS_CONNECTION_500)
