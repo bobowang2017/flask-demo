@@ -31,7 +31,7 @@ class RedisLock(object):
             counter += 1
             if counter > 100:
                 print('try get lock %s times' % counter)
-            if counter > 500:
+            if counter > 200:
                 return False
 
     def release_lock(self):
