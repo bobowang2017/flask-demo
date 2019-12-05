@@ -31,7 +31,7 @@ class RedisLock(object):
             counter += 1
             if counter > 200:
                 raise Exception('Get Lock Timeout')
-            time.sleep(0.1)
+            time.sleep(3)
 
     def release_lock(self):
         # 利用lua脚本解锁，保证下面的三个操作是一个原子

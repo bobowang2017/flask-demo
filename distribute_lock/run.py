@@ -7,7 +7,7 @@ from distribute_lock.lock import RedisLock
 
 redis_lock = RedisLock()
 
-tickit = 10000
+tickit = 5000
 
 
 def sale(thread_name):
@@ -22,7 +22,7 @@ def sale(thread_name):
             print('票卖完了')
             os._exit(0)
         redis_lock.release_lock()
-        time.sleep(0.1)
+        time.sleep(1)
 
 
 class MyThread(threading.Thread):
