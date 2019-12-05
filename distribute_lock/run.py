@@ -3,15 +3,16 @@ import threading
 import time
 
 from common.redis_api import redis_cli
-from lock.lock import RedisLock
+from distribute_lock.lock import RedisLock
 
 redis_lock = RedisLock()
 
-tickit = 1000
+tickit = 10000
 
 
 def sale(thread_name):
     global tickit
+    global redis_lock
     while tickit > 0:
         redis_lock.get_lock()
         if tickit > 0:
@@ -34,6 +35,6 @@ class MyThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    for i in range(20):
+    for i in range(50):
         thread = MyThread(i)
         thread.start()
