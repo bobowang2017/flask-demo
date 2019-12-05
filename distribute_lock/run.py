@@ -14,14 +14,14 @@ def sale(thread_name):
     global tickit
     global redis_lock
     while tickit > 0:
-        redis_lock.get_lock()
-        if tickit > 0:
-            tickit -= 1
-            print('thread_name=%s 剩余tickit=%s' % (thread_name, tickit))
-        else:
-            print('票卖完了')
-            os._exit(0)
-        redis_lock.release_lock()
+        if redis_lock.get_lock():
+            if tickit > 0:
+                tickit -= 1
+                print('thread_name=%s 剩余tickit=%s' % (thread_name, tickit))
+            else:
+                print('票卖完了')
+                os._exit(0)
+            redis_lock.release_lock()
         time.sleep(1)
 
 
@@ -35,6 +35,6 @@ class MyThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    for i in range(50):
+    for i in range(20):
         thread = MyThread(i)
         thread.start()

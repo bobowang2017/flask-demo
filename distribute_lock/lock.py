@@ -23,15 +23,16 @@ class RedisLock(object):
 
     def get_lock(self):
         counter = 0
-        # TODO 设置一个等待时间，百度去
+        # TODO 设置一个等待时间，百度去，超时后返回false
         while True:
             if self.try_lock():
-                print('==========================get lock')
-                return
+                return True
+            time.sleep(0.1)
             counter += 1
-            if counter > 200:
-                raise Exception('Get Lock Timeout')
-            time.sleep(3)
+            if counter > 100:
+                print('try get lock %s times' % counter)
+            if counter > 500:
+                return False
 
     def release_lock(self):
         # 利用lua脚本解锁，保证下面的三个操作是一个原子
