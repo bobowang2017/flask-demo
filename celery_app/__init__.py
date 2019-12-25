@@ -20,9 +20,6 @@ def make_celery(app):
             with app.app_context():
                 return self.run(*args, **kwargs)
 
-        def on_before(self):
-            pass
-
         def on_success(self, retval, task_id, args, kwargs):
             logger.info('task:{} execute success(args={}, kwargs={})'.format(task_id, args, kwargs))
 
