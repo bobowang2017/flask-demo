@@ -21,15 +21,15 @@ class CeleryConfig(object):
             "args": ()  # # 任务函数参数
         },
     }
-    CELERY_QUEUES = (
-        Queue('default_queue', exchange=Exchange('default', type='direct'), routing_key='default.#'),
-        Queue('feed_tasks', exchange=Exchange('feed', type='direct'), routing_key='feed.#'),
-    )
+    # CELERY_QUEUES = (
+    #     Queue('default_queue', exchange=Exchange('default', type='direct'), routing_key='default.#'),
+    #     Queue('feed_tasks', exchange=Exchange('feed', type='direct'), routing_key='feed.#'),
+    # )
 
-    CELERY_TASK_DEFAULT_QUEUE = 'default_queue'
-    CELERY_TASK_DEFAULT_ROUTING_KEY = 'default'
-    CELERY_TASK_DEFAULT_EXCHANGE = 'default'
-    CELERY_TASK_DEFAULT_EXCHANGE_TYPE = 'direct'
+    # CELERY_TASK_DEFAULT_QUEUE = 'default_queue'
+    # CELERY_TASK_DEFAULT_ROUTING_KEY = 'default'
+    # CELERY_TASK_DEFAULT_EXCHANGE = 'default'
+    # CELERY_TASK_DEFAULT_EXCHANGE_TYPE = 'direct'
     CELERY_IMPORTS = ('celery_app.tasks',)
 
     # https://docs.celeryproject.org/en/latest/userguide/configuration.html

@@ -3,7 +3,6 @@ import logging
 import logging.handlers
 import os
 
-from apis.scheduler.scheduler import APScheduler
 from flask_limiter import Limiter
 from flask_sqlalchemy import SQLAlchemy
 
@@ -17,9 +16,6 @@ class FlaskLimiter(object):
     def __init__(self, app):
         self.limiter = Limiter(app)
 
-
-# 初始化定时器
-scheduler = APScheduler()
 
 # 定义日志配置
 p_path = os.path.abspath('')

@@ -12,13 +12,16 @@ def make_celery(app):
     )
 
     celery.config_from_object('celery_app.celery_config.CeleryConfig')
-    logger.info(celery.conf.table(with_defaults=False, censored=True))
+    # logger.info(celery.conf.table(with_defaults=False, censored=True))
 
     class ContextTask(celery.Task):
         def __call__(self, *args, **kwargs):
             logger.info('task starting: {0.name}[{0.request.id}]'.format(self))
             with app.app_context():
                 return self.run(*args, **kwargs)
+
+        def on_before(self):
+            pass
 
         def on_success(self, retval, task_id, args, kwargs):
             logger.info('task:{} execute success(args={}, kwargs={})'.format(task_id, args, kwargs))

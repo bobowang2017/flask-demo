@@ -10,7 +10,7 @@ from apis.project import bp_project
 from celery_app import make_celery
 from common.message import msg_const
 from common.redis_api import redis_cli
-from exts import db, config, scheduler
+from exts import db, config
 from werkzeug.routing import Map, Rule
 from flask_caching import Cache
 
@@ -36,7 +36,6 @@ db.init_app(app)
 
 celery_app = make_celery(app)
 
-scheduler.init_app(app=app)
 
 # 加载Swagger配置
 swagger_config = {
@@ -143,6 +142,5 @@ def process_request(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    scheduler.start()
     app.run(host="0.0.0.0", debug=False, port=5003)
     manager.run()
