@@ -2,7 +2,8 @@
 import logging
 import logging.handlers
 import os
-
+import re
+from logging.handlers import TimedRotatingFileHandler
 from flask_limiter import Limiter
 from flask_sqlalchemy import SQLAlchemy
 
@@ -24,10 +25,12 @@ if not os.path.exists(log_path):
     os.mkdir(log_path)
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.INFO)
-handler = logging.FileHandler('logs/log.log', encoding='UTF-8')
+handler = TimedRotatingFileHandler('logs/log.log', encoding='UTF-8', when='D', interval=1, backupCount=7)
 logging_format = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(pathname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 handler.setFormatter(logging_format)
+handler.suffix = '%Y-%m-%d_%H_%M_%S.log'
+handler.extMatch = re.compile(r'^\d{4}-\d{2}-\d{2}.log')
 logger.addHandler(handler)
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
