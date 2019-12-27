@@ -1,8 +1,10 @@
 from flask import request
 from flask_restful import Resource
 from common.helper import standard_resp, result_to_camel_case, rate_limit
+from common.redis_api import redis_cli
 from exts import logger
 import os
+from celery.app.control import Control
 
 
 class ProjectListResource(Resource):
@@ -23,7 +25,10 @@ class ProjectListResource(Resource):
           - basicAuth: []
         """
         from celery_app.tasks import timer_print
-        timer_print.delay()
+        for i in range(2):
+            task_id = timer_print.delay(i)
+            print(task_id)
+            redis_cli.set(f'task:{i}', str(task_id))
         return "success"
 
 
@@ -45,6 +50,10 @@ class ProjectTestResource(Resource):
           - basicAuth: []
         """
         logger.info('success')
+        task_id = request.args.get('task_id')
+        from app import celery_app
+        controller = Control(celery_app)
+        controller.revoke(task_id, terminate=True)
         return "success"
 
 
