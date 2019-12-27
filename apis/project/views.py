@@ -52,6 +52,7 @@ class ProjectTestResource(Resource):
         logger.info('success')
         task_id = request.args.get('task_id')
         from app import celery_app
+        # 这种停止方式只能停止在等待的任务，正在执行的任务停不下来
         controller = Control(celery_app)
         controller.revoke(task_id, terminate=True)
         return "success"
