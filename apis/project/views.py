@@ -1,3 +1,5 @@
+import time
+
 from flask import request
 from flask_restful import Resource
 from common.helper import standard_resp, result_to_camel_case, rate_limit
@@ -22,8 +24,8 @@ class ProjectListResource(Resource):
         security:
           - basicAuth: []
         """
-        from celery_app.tasks import timer_print
-        timer_print.delay()
+        # from celery_app.tasks import timer_print
+        # timer_print.delay()
         return "success"
 
 
@@ -44,7 +46,9 @@ class ProjectTestResource(Resource):
         security:
           - basicAuth: []
         """
-        logger.info('success')
+        logger.info('before sleep')
+        time.sleep(50)
+        logger.info('after sleep')
         return "success"
 
 

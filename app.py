@@ -5,11 +5,10 @@ from flask import Flask, request
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flasgger import Swagger
-from flask import make_response
+from geventwebsocket.handler import WebSocketHandler
+from geventwebsocket.server import WSGIServer
 from apis.project import bp_project
 from celery_app import make_celery
-from common.message import msg_const
-from common.redis_api import redis_cli
 from exts import db, config, scheduler
 from werkzeug.routing import Map, Rule
 from flask_caching import Cache
@@ -142,7 +141,27 @@ def process_request(*args, **kwargs):
     pass
 
 
+socket_list = []
+
+
+@app.route("/user-msg-task")
+def user_msg_task_socket():
+    user_socket = request.environ.get("wsgi.websocket")
+    socket_list.append(user_socket)
+    while True:
+        msg = user_socket.receive()
+        print(msg)
+        try:
+            user_socket.send("Hello World")
+        except Exception as e:
+            print(e)
+        for _s in socket_list:
+            _s.send(json.dumps({"msg": msg}))
+
+
 if __name__ == '__main__':
     scheduler.start()
-    app.run(host="0.0.0.0", debug=False, port=5003)
-    manager.run()
+    http_server = WSGIServer(("0.0.0.0", 5000), app, handler_class=WebSocketHandler)
+    http_server.serve_forever()
+    # app.run(host="0.0.0.0", debug=False, port=5003)
+    # manager.run()

@@ -17,15 +17,15 @@ class BaseConfig:
     REDIS_HOST = "127.0.0.1"
     REDIS_PORT = 6379
     SCHEDULER_API_ENABLED = True
-    JOBS = [
-        {
-            'id': 'job_1h_data',
-            'func': test_task,
-            'args': '',
-            'trigger': 'interval',
-            'seconds': 20
-        }
-    ]
+    # JOBS = [
+    #     {
+    #         'id': 'job_1h_data',
+    #         'func': test_task,
+    #         'args': '',
+    #         'trigger': 'interval',
+    #         'seconds': 20
+    #     }
+    # ]
 
 
 class TestingConfig(BaseConfig):

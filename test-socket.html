@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocketTest</title>
+</head>
+<body>
+    <div style="text-align: center; margin-left: auto; margin-right: auto">
+        <input type="text" id="content">
+        <button onclick="send_msg()">发送</button>
+    </div>
+    <div id="chat_list"></div>
+</body>
+<script type="application/javascript">
+    var ws = new WebSocket("ws://127.0.0.1:5000/user-msg-task");
+    ws.onmessage = function (eventMessage) {
+        console.log(eventMessage.data);
+        var p = document.createElement("p");
+        p.innerText = eventMessage.data;
+        document.getElementById("chat_list").appendChild(p);
+    };
+    function send_msg() {
+        var content = document.getElementById("content").value;
+        console.log(content);
+        ws.send(content);
+    }
+</script>
+</html>
