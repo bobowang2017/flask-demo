@@ -6,11 +6,14 @@ import os
 from apis.scheduler.scheduler import APScheduler
 from flask_limiter import Limiter
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_profiler import Profiler
 from settings import CONFIG
 
 # 初始化DB
 db = SQLAlchemy()
+
+# 初始化flask-profiler
+profiler = Profiler()
 
 
 class FlaskLimiter(object):

@@ -27,4 +27,5 @@ flower==0.9.3
 flask-limiter==1.1.0
 Flask-APScheduler==1.11.0
 gevent-websocket==0.10.1
+flask_profiler==1.8.1
 #pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple some-package

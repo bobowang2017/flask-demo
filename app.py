@@ -9,9 +9,10 @@ from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket.server import WSGIServer
 from apis.project import bp_project
 from celery_app import make_celery
-from exts import db, config, scheduler
+from exts import db, config, scheduler, profiler
 from werkzeug.routing import Map, Rule
 from flask_caching import Cache
+
 
 # 需要传递一个参数__name__
 # 1、方便flask框架去寻找资源
@@ -36,6 +37,29 @@ db.init_app(app)
 celery_app = make_celery(app)
 
 scheduler.init_app(app=app)
+
+app.config["flask_profiler"] = {
+    "enabled": True,
+    "storage": {
+        "engine": "sqlalchemy",
+        "db_url": "mysql+pymysql://root:root@127.0.0.1:3333/flask_profiler?charset=utf8mb4"  # optional
+    },
+    # "storage": {
+    #     "engine": "custom.project.flask_profiler.mysql.MysqlStorage",
+    #     "MYSQL": "mysql://root:root@localhost/flask_profiler"
+    # },
+    "basicAuth": {
+        "enabled": True,
+        "username": "admin",
+        "password": "admin"
+    },
+    "ignore": ["^/static/.*"]
+}
+
+profiler.init_app(app)
+# 为了激活flask-profiler，您必须通过flask
+# app作为flask-profiler的参数。
+# 到目前为止，flask-profiler将跟踪所有已声明的端点。
 
 # 加载Swagger配置
 swagger_config = {
@@ -161,7 +185,7 @@ def user_msg_task_socket():
 
 if __name__ == '__main__':
     scheduler.start()
-    http_server = WSGIServer(("0.0.0.0", 5000), app, handler_class=WebSocketHandler)
-    http_server.serve_forever()
-    # app.run(host="0.0.0.0", debug=False, port=5003)
+    # http_server = WSGIServer(("0.0.0.0", 5000), app, handler_class=WebSocketHandler)
+    # http_server.serve_forever()
+    app.run(host="0.0.0.0", debug=True, port=5000)
     # manager.run()
